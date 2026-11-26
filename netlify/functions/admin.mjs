@@ -114,6 +114,18 @@ export default async (req, context) => {
     }
 
     /* team */
+    /* email subscribers */
+    if (section === "subscribers" && m === "GET") {
+      const { blobs } = await store.list({ prefix: "subs/" });
+      const all = (await Promise.all(blobs.map(async b => ({ id: b.key.slice(5), ...(await store.get(b.key, { type: "json" })) })))).filter(x => x.email);
+      all.sort((a, b) => String(b.at).localeCompare(String(a.at)));
+      return json({ subscribers: all });
+    }
+    if (section === "subscribers" && m === "DELETE" && /^[a-f0-9]{32}$/.test(id || "")) {
+      await store.delete("subs/" + id);
+      return json({ ok: true });
+    }
+
     if (section === "users" && m === "GET") return json((await getUsers()).map(u => ({ email: u.email, name: u.name, created: u.created })));
     if (section === "users" && m === "POST") {
       const b = await req.json(); const email = String(b.email || "").trim().toLowerCase();

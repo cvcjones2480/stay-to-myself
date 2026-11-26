@@ -184,6 +184,12 @@ main{max-width:1180px;margin:0 auto;padding:24px max(4vw,14px) 80px}
   </form>
 </section>
 
+<section data-tab="subscribers" hidden>
+  <div class="head"><div><h2>Subscribers</h2><p class="muted" style="margin:4px 0 0">Emails from the "Stay locked in with STM" signup on the site.</p></div>
+    <div class="row"><button class="btn" id="copySubs" type="button">Copy all emails</button><button class="btn dark" id="csvSubs" type="button">Download CSV</button></div></div>
+  <div class="card"><p class="muted" id="subCount" style="margin:0 0 10px"></p><div class="ulist" id="subList"></div></div>
+</section>
+
 <section data-tab="team" hidden>
   <div class="head"><h2>Team</h2></div>
   <div class="grid2" style="align-items:start">
@@ -244,7 +250,7 @@ $('gateForm').onsubmit = async e => {
 $('logout').onclick = async () => { await api('/api/auth/logout',{method:'POST'}).catch(()=>{}); showGate(false); };
 
 /* ---------- tabs ---------- */
-const TABS=[['orders','Orders'],['products','Products'],['settings','Store settings'],['content','Site content'],['team','Team']];
+const TABS=[['orders','Orders'],['products','Products'],['settings','Store settings'],['content','Site content'],['subscribers','Subscribers'],['team','Team']];
 let tab='orders';
 function renderTabs(){ $('tabs').innerHTML=TABS.map(([k,l])=>`<button role="tab" type="button" data-t="${k}" aria-selected="${k===tab}">${l}${k==='orders'&&newCount?`<span class="n">${newCount}</span>`:''}</button>`).join(''); }
 function go(t){ if(tab==='products' && t!=='products' && dirty && !confirmLeave()) return; tab=t; renderTabs(); document.querySelectorAll('main>section').forEach(s=>s.hidden=s.dataset.tab!==t); try{history.replaceState(null,'','#'+t)}catch{} LOAD[t]&&LOAD[t](); }
@@ -402,7 +408,16 @@ $('addUser').onsubmit=async e=>{ e.preventDefault(); const f=e.target;
 $('pwForm').onsubmit=async e=>{ e.preventDefault(); const f=e.target;
   try{ await api('/api/auth/password',{method:'POST',body:JSON.stringify({current:f.current.value,next:f.next.value})}); f.reset(); toast('Password updated.'); }catch(err){ toast(err.message,true); } };
 
-const LOAD={orders:loadOrders,products:()=>loadCatalog(),settings:()=>loadCatalog(true).then(fillSettings),content:loadContent,team:loadTeam};
+let subs=[];
+async function loadSubs(){ try{ subs=(await api('/api/admin/subscribers')).subscribers;
+  $('subCount').textContent = subs.length ? `${subs.length} subscriber${subs.length===1?'':'s'}` : '';
+  $('subList').innerHTML = subs.length ? subs.map(s=>`<div class="urow"><div><b>${esc(s.email)}</b><div class="muted" style="font-size:14px">Joined ${esc(new Date(s.at).toLocaleDateString())}</div></div><button class="btn danger" type="button" data-sub="${esc(s.id)}">Remove</button></div>`).join('') : '<p class="empty">No subscribers yet. Emails entered on the site appear here.</p>';
+  }catch(e){ toast(e.message,true); } }
+$('subList').onclick=async e=>{ const b=e.target.closest('[data-sub]'); if(!b) return; if(window.confirm && !window.confirm('Remove this subscriber?')) return;
+  try{ await api('/api/admin/subscribers/'+b.dataset.sub,{method:'DELETE'}); toast('Removed.'); loadSubs(); }catch(err){ toast(err.message,true); } };
+$('copySubs').onclick=async()=>{ if(!subs.length) return toast('No subscribers yet.'); try{ await navigator.clipboard.writeText(subs.map(s=>s.email).join(', ')); toast('Copied '+subs.length+' email(s).'); }catch{ toast('Could not copy. Use Download CSV instead.',true); } };
+$('csvSubs').onclick=()=>{ if(!subs.length) return toast('No subscribers yet.'); const csv='email,joined\n'+subs.map(s=>`"${String(s.email).replace(/"/g,'""')}",${String(s.at).slice(0,10)}`).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='stm-subscribers.csv'; a.click(); };
+const LOAD={subscribers:loadSubs,orders:loadOrders,products:()=>loadCatalog(),settings:()=>loadCatalog(true).then(fillSettings),content:loadContent,team:loadTeam};
 
 async function boot(){
   try{ const d=await api('/api/auth/me'); if(!d.user){ showGate(d.needsSetup); return; }

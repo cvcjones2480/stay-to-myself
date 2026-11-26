@@ -244,7 +244,7 @@ dialog button{position:absolute;top:8px;right:8px;width:44px;height:44px;border-
 <section class="band join" id="join"><div class="wrap">
   <h2>Stay locked in with STM.</h2>
   <p>Follow the journey and be first to know about new drops.</p>
-  <form id="joinForm"><label class="sr" for="em" style="position:absolute;left:-9999px">Email</label><input id="em" type="email" placeholder="you@email.com" required><button class="btn" type="submit">Notify me</button></form>
+  <form id="joinForm"><label class="sr" for="em" style="position:absolute;left:-9999px">Email</label><input id="em" type="email" placeholder="you@email.com" required autocomplete="email"><input name="website" id="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px"><button class="btn" type="submit">Notify me</button></form>
   <div class="msg" id="msg" role="status"></div>
   <p><a id="ig" href="#" style="font-weight:800">Instagram</a> · <a id="tt" href="#" style="font-weight:800">TikTok</a></p>
 </div></section>
@@ -280,7 +280,6 @@ dialog button{position:absolute;top:8px;right:8px;width:44px;height:44px;border-
 const SITE = {
   instagram: "",
   tiktok: "",
-  signupUrl: "",               /* optional: a Square or Google Form signup link */
   checkoutEndpoint: "/api/checkout"
 };
 const COLORWAYS = [
@@ -445,10 +444,16 @@ renderCw();
 
 if(SITE.instagram) $('ig').href=SITE.instagram; else $('ig').removeAttribute('href');
 if(SITE.tiktok) $('tt').href=SITE.tiktok; else $('tt').removeAttribute('href');
-$('joinForm').onsubmit = e => {
+$('joinForm').onsubmit = async e => {
   e.preventDefault();
-  if(SITE.signupUrl){ location.href = SITE.signupUrl; return; }
-  $('msg').textContent = "Email signups open soon. Follow STM on social for drop dates.";
+  const btn = e.target.querySelector('button'); btn.disabled = true; $('msg').textContent = '';
+  try {
+    const r = await fetch('/api/subscribe',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:$('em').value, website:$('hp').value})});
+    const d = await r.json().catch(()=>({}));
+    if(r.ok){ $('msg').textContent = d.already ? "You're already on the list. Stay locked in." : "You're on the list. Stay locked in."; $('em').value=''; }
+    else $('msg').textContent = d.error || 'Something went wrong. Please try again.';
+  } catch { $('msg').textContent = 'Something went wrong. Please try again.'; }
+  btn.disabled = false;
 };
 }
 </script>
