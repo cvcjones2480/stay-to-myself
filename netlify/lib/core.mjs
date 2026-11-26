@@ -34,6 +34,7 @@ export function normalizeCatalog(c) {
     currency: "USD",
     shipping: { name: "Standard shipping", amount: 0, freeOver: 0 },
     taxPercent: null,
+    taxState: "VA",
     sizeUpcharges: {},
     checkoutOpen: true,
     ...c

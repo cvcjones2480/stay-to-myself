@@ -123,6 +123,8 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 .sum .tot{font-weight:800;font-size:18px;padding-top:6px;border-top:1px solid var(--line)}
 .sum .btn{width:100%;margin-top:6px}.sum .btn:disabled{opacity:.6}
 .fine{font-size:13px;color:var(--muted);margin:0}
+.shipto{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:15px}
+.shipto select{min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px Archivo,sans-serif;padding:0 10px}
 .thanks{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;background:#111;color:#f2f0eb;border:2px solid var(--bronze);border-radius:14px;padding:14px 52px 14px 18px;width:min(560px,92vw);box-shadow:0 20px 50px #0007}
 .thanks button{position:absolute;top:4px;right:4px;color:#f2f0eb}
 @media(prefers-reduced-motion:reduce){.drawer{transition:none}}
@@ -249,7 +251,8 @@ dialog button{position:absolute;top:8px;right:8px;width:44px;height:44px;border-
   <div class="sum" id="cartSum" hidden>
     <div><span>Subtotal</span><span id="cartSub"></span></div>
     <div><span>Shipping</span><span id="cartShip"></span></div>
-    <div id="cartTax" hidden><span>Sales tax</span><span>Added at checkout</span></div>
+    <label class="shipto" id="shipToRow" hidden><span>Shipping to</span><select id="shipTo"><option value="">Choose state</option><option value="IN">Virginia</option><option value="OUT">Another U.S. state</option></select></label>
+    <div id="cartTax" hidden><span id="cartTaxLabel">Sales tax</span><span id="cartTaxAmt"></span></div>
     <div class="tot"><span>Total</span><span id="cartTotal"></span></div>
     <button class="btn solid" id="checkout" type="button">Checkout with Square</button>
     <p class="err" id="cartMsg" role="status"></p>
@@ -361,8 +364,14 @@ function renderCart(){
   const sh = CATALOG.shipping||{}; const ship = sh.amount>0 && !(sh.freeOver>0 && sub>=sh.freeOver) ? sh.amount : 0;
   $('cartSub').textContent = money(sub);
   $('cartShip').textContent = ship ? money(ship) : 'Free';
-  $('cartTax').hidden = !CATALOG.taxPercent;
-  $('cartTotal').textContent = money(sub+ship);
+  const taxOn = Number(CATALOG.taxPercent) > 0, st = CATALOG.taxState || 'VA';
+  $('shipToRow').hidden = !taxOn;
+  if(taxOn){ const o=$('shipTo').options; o[1].value=st; o[1].textContent = st==='VA'?'Virginia':st; }
+  const tax = taxOn && $('shipTo').value===st ? Math.round((sub)*CATALOG.taxPercent)/100 : 0;
+  $('cartTax').hidden = !(taxOn && $('shipTo').value===st);
+  $('cartTaxLabel').textContent = `Sales tax (${CATALOG.taxPercent}%)`;
+  $('cartTaxAmt').textContent = money(tax);
+  $('cartTotal').textContent = money(sub+ship+tax);
 }
 $('cartItems').onclick = e => {
   const b=e.target.closest('button'); if(!b) return;
@@ -376,11 +385,13 @@ function closeCart(){ $('cart').classList.remove('open'); $('cartBg').hidden=tru
 $('cartBtn').onclick = openCart; $('cartClose').onclick = closeCart; $('cartBg').onclick = closeCart;
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeCart(); });
 
+$('shipTo').onchange = () => { $('cartMsg').textContent=''; renderCart(); };
 $('checkout').onclick = async () => {
+  if(Number(CATALOG.taxPercent)>0 && !$('shipTo').value){ $('cartMsg').textContent='Please choose where your order is shipping.'; $('shipTo').focus(); return; }
   if(CATALOG.checkoutOpen===false){ $('cartMsg').textContent='The shop is closed right now. Please check back soon.'; return; }
   const btn=$('checkout'); $('cartMsg').textContent=''; btn.disabled=true; btn.textContent='Opening secure checkout…';
   try {
-    const r = await fetch(SITE.checkoutEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:cart})});
+    const r = await fetch(SITE.checkoutEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:cart, shipTo:$('shipTo').value})});
     const d = await r.json().catch(()=>({}));
     if(r.ok && d.url){ location.href = d.url; return; }
     $('cartMsg').textContent = d.error || 'Checkout is not connected yet. Please check back soon.';

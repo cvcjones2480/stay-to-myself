@@ -5,7 +5,8 @@
     "name": "Standard shipping",
     "amount": 8.0
   },
-  "taxPercent": null,
+  "taxPercent": 5.3,
+  "taxState": "VA",
   "sizeUpcharges": {
     "2XL": 2,
     "3XL": 4,

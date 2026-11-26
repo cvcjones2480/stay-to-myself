@@ -11,8 +11,10 @@ export default async (req) => {
   const cat = await getCatalog();
   if (!cat.checkoutOpen) return fail("The shop is closed right now. Please check back soon.", 403);
 
-  let items;
-  try { items = (await req.json()).items; } catch { return fail("Bad request"); }
+  let items, shipTo;
+  try { ({ items, shipTo } = await req.json()); } catch { return fail("Bad request"); }
+  const taxable = Number(cat.taxPercent) > 0;
+  if (taxable && !shipTo) return fail("Please choose where your order is shipping.");
   if (!Array.isArray(items) || !items.length || items.length > 30) return fail("Your cart is empty.");
 
   const byId = Object.fromEntries(cat.products.filter(p => p.visible).map(p => [p.id, p]));
@@ -31,7 +33,9 @@ export default async (req) => {
   }
 
   const order = { location_id: env("SQUARE_LOCATION_ID"), reference_id: ORDER_TAG, line_items };
-  if (Number(cat.taxPercent) > 0) order.taxes = [{ uid: "sales-tax", name: "Sales tax", percentage: String(cat.taxPercent), scope: "ORDER" }];
+  // Sales tax applies only to orders shipping to the business's home state (Virginia by default).
+  if (taxable && shipTo === cat.taxState) order.taxes = [{ uid: "sales-tax", name: `${cat.taxState} sales tax`, percentage: String(cat.taxPercent), scope: "ORDER" }];
+  if (taxable) order.metadata = { ship_to: shipTo === cat.taxState ? cat.taxState : "outside" };
 
   const site = env("SITE_URL") || new URL(req.url).origin;
   const checkout_options = { ask_for_shipping_address: true, redirect_url: `${site}/?order=success` };
