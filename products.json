@@ -1,0 +1,205 @@
+{
+  "_readme": "Single source of truth for the shop. The website shows these prices and the checkout function charges these prices. Prices are in US dollars. CHANGE THE PLACEHOLDER PRICES BEFORE LAUNCH.",
+  "currency": "USD",
+  "shipping": {
+    "name": "Standard shipping",
+    "amount": 8.0
+  },
+  "taxPercent": null,
+  "sizeUpcharges": {
+    "2XL": 2,
+    "3XL": 4,
+    "4XL": 6,
+    "5XL": 8
+  },
+  "products": [
+    {
+      "id": "classic-hoodie",
+      "name": "STM Classic Hoodie",
+      "cat": "Hoodies",
+      "price": 60.0,
+      "desc": "White bubble letters, bronze emblems.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Black",
+          "#111111",
+          "img/hoodie-classic.jpg"
+        ],
+        [
+          "White",
+          "#f4f4f4",
+          "img/hero-model.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "key-hoodie",
+      "name": "Stay To Myself Key Hoodie",
+      "cat": "Hoodies",
+      "price": 65.0,
+      "desc": "Key graphic on the front, full STM mark on the back.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Black",
+          "#111111",
+          "img/hoodie-key-frontback.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "key-crewneck",
+      "name": "Stay To Myself Key Crewneck",
+      "cat": "Crewnecks",
+      "price": 55.0,
+      "desc": "Front and back print on a heavyweight crew.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Black",
+          "#111111",
+          "img/crew-key-frontback.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "classic-tee",
+      "name": "STM Classic Tee",
+      "cat": "Tees",
+      "price": 30.0,
+      "desc": "The signature mark on a soft everyday tee.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Charcoal",
+          "#55575a",
+          "img/tee-grey.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "heritage-tee",
+      "name": "STM Heritage Tee",
+      "cat": "Tees",
+      "price": 30.0,
+      "desc": "Red, gold and green colorway on black.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Black",
+          "#111111",
+          "img/tee-heritage.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "colorway-tee",
+      "name": "STM Colorway Tee",
+      "cat": "Tees",
+      "price": 30.0,
+      "desc": "Choose your logo color.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Royal Blue",
+          "#1f4fb4",
+          "img/logo-blue.jpg"
+        ],
+        [
+          "Purple",
+          "#6b2fb3",
+          "img/logo-purple.jpg"
+        ],
+        [
+          "Pink",
+          "#d9488f",
+          "img/logo-pink.jpg"
+        ],
+        [
+          "Red",
+          "#a3161c",
+          "img/logo-red.jpg"
+        ]
+      ]
+    },
+    {
+      "id": "allsports-tee",
+      "name": "STM All-Sports Edition Tee",
+      "cat": "Tees",
+      "price": 32.0,
+      "desc": "Football, basketball and baseball built into the mark.",
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL",
+        "3XL",
+        "4XL",
+        "5XL"
+      ],
+      "looks": [
+        [
+          "Classic",
+          "#c8893b",
+          "img/logo-allsports.jpg"
+        ]
+      ]
+    }
+  ]
+}

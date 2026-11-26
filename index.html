@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stay To Myself | STM Apparel</title>
+<meta name="description" content="Stay To Myself (STM) apparel. Built by an 18-year-old student athlete. Focus on your goals, embrace the grind.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+/* VOICE: streetwear drop page, confident, clean, a young founder's story told straight
+   IDEA: a locker room wall: concrete, tape, a stopwatch, the gear hanging ready
+   PICTURE: the founder hoodie shot, large, with the STM mark as the brand signature
+   COLOUR and TYPE: black and concrete with bronze from the logo art; Archivo Black + Permanent Marker accents
+   LAYOUT: full width bands, hero, story, symbols, shop grid, colorway switcher, footer */
+:root{color-scheme:light dark;--bg:light-dark(#f3f2ef,#0c0c0d);--ink:light-dark(#141414,#f2f0eb);--muted:light-dark(#5d5a55,#a7a39b);--card:light-dark(#ffffff,#18181a);--line:light-dark(#dcd9d2,#2a2a2d);--bronze:#c8893b;--bronze2:light-dark(#9a6420,#e0a65b);--blk:#0c0c0d}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Archivo,system-ui,sans-serif;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+.band{padding:clamp(40px,6vw,88px) max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:"Archivo Black",Archivo,sans-serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(32px,4.6vw,52px)}
+.tag{font-family:"Permanent Marker",cursive;color:var(--bronze2);font-size:20px;margin:0 0 10px}
+.lead{font-size:17px;color:var(--muted);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:800;text-decoration:none;border:2px solid currentColor;cursor:pointer;font-size:16px;font-family:inherit;background:none;color:inherit;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid{background:var(--bronze);border-color:var(--bronze);color:#111}
+.btn:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--bronze);outline-offset:3px}
+.btn[aria-disabled=true]{opacity:.55;cursor:default;transform:none}
+
+/* launch strip + nav */
+.strip{background:var(--bronze);color:#111;text-align:center;font-weight:800;font-size:14px;padding:9px 44px 9px 16px;position:relative}
+.strip button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;font-size:20px;cursor:pointer;width:36px;height:36px;color:#111}
+nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--blk) 92%,transparent);backdrop-filter:blur(8px);color:#f2f0eb}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px max(5vw,16px);max-width:none}
+.logo{font-family:"Permanent Marker",cursive;font-size:26px;text-decoration:none;letter-spacing:.04em}
+.logo span{color:var(--bronze)}
+.links{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.links a{text-decoration:none;font-weight:600;font-size:15px;padding:10px 12px;border-radius:8px}
+.links a:hover{background:#ffffff14}
+.links a.cta{background:var(--bronze);color:#111}
+
+/* hero */
+.hero{background:var(--blk);color:#f2f0eb;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 78% 40%,#7a4fd655,transparent 70%),radial-gradient(40% 50% at 10% 90%,#c8893b22,transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(36px,6vw,80px) max(5vw,16px) 0;max-width:1240px}
+.hero h1{font-size:clamp(44px,7vw,92px);letter-spacing:-.01em}
+.hero h1 em{font-style:normal;font-family:"Permanent Marker",cursive;color:var(--bronze);display:block;font-size:.62em;margin-top:10px;letter-spacing:.02em}
+.hero p{color:#c9c5bd;font-size:18px;max-width:46ch;margin:22px 0 28px}
+.hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:clamp(32px,6vw,72px)}
+.hero figure{margin:0;align-self:end;position:relative}
+.hero figure img{width:100%;max-height:640px;object-fit:cover;object-position:top;border-radius:18px 18px 0 0;box-shadow:0 30px 80px #000a}
+.ticker{background:var(--bronze);color:#111;overflow:hidden;white-space:nowrap;font-family:"Archivo Black",sans-serif;font-size:18px;padding:12px 0}
+.ticker div{display:inline-block;animation:run 32s linear infinite}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* story */
+.story .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.stat b{display:block;font-family:"Archivo Black",sans-serif;font-size:clamp(34px,4.4vw,48px);line-height:1;color:var(--bronze2);white-space:nowrap}
+.stat span{color:var(--muted);font-size:15px}
+.not{margin-top:28px;padding:22px 24px;border-radius:16px;background:var(--blk);color:#f2f0eb}
+.not h3{font-size:22px;margin-bottom:6px}
+.not p{margin:0;color:#c9c5bd}
+
+/* symbols */
+.sym{background:var(--blk);color:#f2f0eb}
+.sym .lead{color:#b5b1a9}
+.symgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:34px}
+.s{border:1px solid #2d2d30;border-radius:16px;padding:22px;background:#151517}
+.s h3{font-size:20px;margin:12px 0 6px}
+.s p{margin:0;color:#b5b1a9;font-size:15px}
+.s svg{width:40px;height:40px;stroke:var(--bronze);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* shop */
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 15px Archivo,sans-serif;cursor:pointer}
+.filters button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:18px}
+.p{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.p .ph{aspect-ratio:4/3;background:#d9d7d2;cursor:zoom-in;overflow:hidden;border:0;padding:0;width:100%}
+.p .ph img{width:100%;height:100%;object-fit:contain;transition:transform .4s}
+.p:hover .ph img{transform:scale(1.04)}
+.p .bd{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.p h3{font-size:20px}
+.p .meta{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:14px}
+.p .price{font-weight:800;color:var(--ink);white-space:nowrap}
+.sw{display:flex;gap:8px;flex-wrap:wrap}
+.sw button{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw button[aria-pressed=true]{outline:2px solid var(--ink);outline-offset:2px}
+.p .btn{margin-top:auto;width:100%}
+.sz{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.sz select{flex:1;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px Archivo,sans-serif;padding:0 10px}
+.err{color:#c0392b;font-size:14px;font-weight:600;min-height:0;margin:0}
+.cartbtn{position:relative;width:44px;height:44px;border-radius:10px;border:0;background:#ffffff14;color:#f2f0eb;cursor:pointer;display:grid;place-items:center;margin-left:4px}
+.cartbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.cartbtn span{position:absolute;top:-4px;right:-4px;background:var(--bronze);color:#111;font-size:12px;font-weight:800;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 5px}
+.cartbg{position:fixed;inset:0;background:#0008;z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);background:var(--bg);color:var(--ink);z-index:41;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s,visibility .25s;visibility:hidden}
+.drawer.open{transform:none;visibility:visible;box-shadow:-20px 0 60px #0005}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.dh h3{font-size:22px}
+.dh button,.thanks button{width:44px;height:44px;border:0;background:none;color:inherit;font-size:26px;cursor:pointer}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.empty{color:var(--muted);text-align:center;padding:40px 0}
+.ci{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.ci img{width:72px;height:72px;object-fit:contain;background:#d9d7d2;border-radius:10px}
+.ci b{display:block;font-size:15px}.ci span{font-size:14px;color:var(--muted)}
+.ci .price{font-weight:800;color:var(--ink);white-space:nowrap}
+.qty{display:flex;align-items:center;gap:6px;margin-top:8px}
+.qty button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;cursor:pointer}
+.qty span{min-width:22px;text-align:center;color:var(--ink)!important;font-weight:700}
+.qty .rm{width:auto;border:0;background:none;text-decoration:underline;font-size:14px;color:var(--muted);padding:0 6px}
+.sum{padding:16px 20px 22px;border-top:1px solid var(--line);display:grid;gap:8px}
+.sum>div{display:flex;justify-content:space-between;font-size:15px}
+.sum .tot{font-weight:800;font-size:18px;padding-top:6px;border-top:1px solid var(--line)}
+.sum .btn{width:100%;margin-top:6px}.sum .btn:disabled{opacity:.6}
+.fine{font-size:13px;color:var(--muted);margin:0}
+.thanks{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;background:#111;color:#f2f0eb;border:2px solid var(--bronze);border-radius:14px;padding:14px 52px 14px 18px;width:min(560px,92vw);box-shadow:0 20px 50px #0007}
+.thanks button{position:absolute;top:4px;right:4px;color:#f2f0eb}
+@media(prefers-reduced-motion:reduce){.drawer{transition:none}}
+.note{font-size:14px;color:var(--muted);margin-top:18px}
+
+/* colorways */
+.cw .wrap{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.stage{background:#fff;border-radius:20px;border:1px solid var(--line);padding:clamp(10px,2vw,24px);aspect-ratio:16/10;display:grid;place-items:center;overflow:hidden}
+.stage img{max-height:100%;object-fit:contain;transition:opacity .25s}
+.cwlist{display:grid;gap:8px;margin-top:22px}
+.cwlist button{display:flex;align-items:center;gap:12px;min-height:48px;padding:6px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 16px Archivo,sans-serif;cursor:pointer;text-align:left}
+.cwlist button[aria-pressed=true]{border-color:var(--bronze);box-shadow:inset 4px 0 0 var(--bronze)}
+.dot{width:22px;height:22px;border-radius:50%;flex:none}
+
+/* follow + footer */
+.join{background:var(--bronze);color:#111;text-align:center}
+.join h2{margin-bottom:10px}
+.join form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.join input{min-height:50px;width:min(100%,340px);border-radius:999px;border:2px solid #111;padding:0 20px;font:16px Archivo,sans-serif;background:#fff;color:#111}
+.join .btn{background:#111;color:#f2f0eb;border-color:#111}
+.join .msg{min-height:24px;font-weight:800;margin-top:12px}
+footer{background:var(--blk);color:#b5b1a9;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+footer .logo{color:#f2f0eb}
+
+/* lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(94vw,1100px)}
+dialog::backdrop{background:#000d}
+dialog img{border-radius:14px;max-height:84vh;width:auto}
+dialog button{position:absolute;top:8px;right:8px;width:44px;height:44px;border-radius:50%;border:0;background:#fff;font-size:22px;cursor:pointer}
+
+@media(max-width:900px){.symgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.cw .wrap,.story .wrap{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:720px){.links a:not(.cta){display:none}.hero .wrap{grid-template-columns:minmax(0,1fr)}.hero figure{max-width:440px;margin:0 auto}}
+@media(max-width:520px){.symgrid{grid-template-columns:minmax(0,1fr)}.stats{gap:10px}.stat{padding:16px}}
+@media(prefers-reduced-motion:reduce){.ticker div{animation:none}html{scroll-behavior:auto}.btn,.p .ph img{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="strip" id="strip"><span id="stripText">Launched on the founder's birthday, 11.25.26. Happy birthday, Tyrone!</span> <button aria-label="Dismiss" id="stripX">×</button></div>
+
+<nav><div class="wrap">
+  <a class="logo" href="#top">S<span>.</span>T<span>.</span>M<span>.</span></a>
+  <div class="links"><a href="#story">Story</a><a href="#meaning">Meaning</a><a href="#colorways">Colorways</a><a class="cta" href="#shop">Shop</a><button class="cartbtn" id="cartBtn" type="button" aria-label="Open cart"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.5 12h-11z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span id="cartCount" hidden>0</span></button></div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <p class="tag">Est. 2024 · Authentic STM Apparel Co.</p>
+      <h1>Stay To Myself.<em>Focus on goals. Embrace the grind.</em></h1>
+      <p id="tagline">Apparel built by an 18-year-old student athlete for anyone locked in on their future. No distractions. Just dedication.</p>
+      <div class="acts"><a class="btn solid" href="#shop">Shop the drop</a><a class="btn" href="#story">Read the story</a></div>
+    </div>
+    <figure><img src="img/hero-model.jpg" alt="Model wearing the white STM Stay To Myself hoodie"></figure>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div id="tick"></div></div>
+
+<section class="band story" id="story"><div class="wrap">
+  <div>
+    <p class="tag">The founder</p>
+    <h2>Meet <span id="founder">Tyrone Harrison, Jr.</span></h2>
+    <p class="lead" id="story0">Tyrone is an 18-year-old student athlete who plays football, basketball and baseball. He is in a dual enrollment program, so he will walk away with both his high school diploma and his associate degree, and he carries a 4.3 GPA while doing it.</p>
+    <p class="lead" id="story1">Stay To Myself is how he moves through a challenging world: keep the books open, keep the work in, and stay out of anything that could cost him his future. Now he is sharing that mindset with the world, one piece at a time.</p>
+    <div class="not">
+      <h3 id="notTitle">Not antisocial. Locked in.</h3>
+      <p id="notText">STM is not about shutting people out. It is about protecting your goals, choosing your circle with purpose, and refusing to be pulled into behavior that does not serve where you are headed.</p>
+    </div>
+  </div>
+  <div class="stats" id="stats">
+    <div class="stat"><b>18</b><span>years old, founder and CEO</span></div>
+    <div class="stat"><b>4.3</b><span>GPA, earned in the classroom</span></div>
+    <div class="stat"><b>3</b><span>sports: football, basketball, baseball</span></div>
+    <div class="stat"><b>2</b><span>credentials at once: H.S. diploma and associate degree</span></div>
+  </div>
+</div></section>
+
+<section class="band sym" id="meaning"><div class="wrap">
+  <p class="tag">Read the logo</p>
+  <h2>Every piece of the mark means something.</h2>
+  <p class="lead">The symbols around the STM letters are the routine behind the results.</p>
+  <div class="symgrid" id="symgrid"></div>
+</div></section>
+
+<section class="band" id="shop"><div class="wrap">
+  <div class="head">
+    <div><p class="tag">The drop</p><h2>Shop STM</h2></div>
+    <div class="filters" role="group" aria-label="Filter products" id="filters"></div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <p class="note">Secure checkout is handled by Square. Tap any photo to see it up close.</p>
+</div></section>
+
+<section class="band cw" id="colorways"><div class="wrap">
+  <div class="stage"><img id="cwImg" src="img/logo-classic.jpg" alt="STM logo, Classic colorway"></div>
+  <div>
+    <p class="tag">Pick your colors</p>
+    <h2>Colorways</h2>
+    <p class="lead">Same mindset, your colors. Ask about any colorway on tees and hoodies.</p>
+    <div class="cwlist" id="cwlist"></div>
+  </div>
+</div></section>
+
+<section class="band join" id="join"><div class="wrap">
+  <h2>Stay locked in with STM.</h2>
+  <p>Follow the journey and be first to know about new drops.</p>
+  <form id="joinForm"><label class="sr" for="em" style="position:absolute;left:-9999px">Email</label><input id="em" type="email" placeholder="you@email.com" required><button class="btn" type="submit">Notify me</button></form>
+  <div class="msg" id="msg" role="status"></div>
+  <p><a id="ig" href="#" style="font-weight:800">Instagram</a> · <a id="tt" href="#" style="font-weight:800">TikTok</a></p>
+</div></section>
+
+<footer class="band"><div class="wrap">
+  <a class="logo" href="#top">S<span>.</span>T<span>.</span>M<span>.</span></a>
+  <span>© <span id="yr"></span> Stay To Myself Apparel. Focus on goals. Embrace the grind.</span>
+</div></footer>
+
+<div class="thanks" id="thanks" hidden role="status"><b>Thank you for your order!</b> A receipt from Square is on its way to your email. Stay locked in. <button id="thanksX" aria-label="Close">×</button></div>
+<div class="cartbg" id="cartBg" hidden></div>
+<aside class="drawer" id="cart" aria-hidden="true" aria-label="Shopping cart">
+  <div class="dh"><h3>Your cart</h3><button id="cartClose" type="button" aria-label="Close cart">×</button></div>
+  <div class="items" id="cartItems"></div>
+  <div class="sum" id="cartSum" hidden>
+    <div><span>Subtotal</span><span id="cartSub"></span></div>
+    <div><span>Shipping</span><span id="cartShip"></span></div>
+    <div id="cartTax" hidden><span>Sales tax</span><span>Added at checkout</span></div>
+    <div class="tot"><span>Total</span><span id="cartTotal"></span></div>
+    <button class="btn solid" id="checkout" type="button">Checkout with Square</button>
+    <p class="err" id="cartMsg" role="status"></p>
+    <p class="fine">You'll pay on Square's secure checkout page and enter your shipping address there.</p>
+  </div>
+</aside>
+
+<dialog id="lb"><button id="lbX" aria-label="Close">×</button><img id="lbImg" alt=""></dialog>
+
+<script>
+{
+/* ===== EDIT HERE: links =====
+   Product names, prices, sizes and shipping are in products.json. */
+const SITE = {
+  instagram: "",
+  tiktok: "",
+  signupUrl: "",               /* optional: a Square or Google Form signup link */
+  checkoutEndpoint: "/api/checkout"
+};
+const COLORWAYS = [
+  ["Classic","#c8893b","img/logo-classic.jpg"],["Royal Blue","#1f4fb4","img/logo-blue.jpg"],["Purple","#6b2fb3","img/logo-purple.jpg"],
+  ["Pink","#d9488f","img/logo-pink.jpg"],["Red","#a3161c","img/logo-red.jpg"],["Heritage","linear-gradient(90deg,#c1272d,#f2c200,#138a36)","img/logo-heritage.jpg"],
+  ["All-Sports","#7a5230","img/logo-allsports.jpg"]
+];
+const ICON = {
+  watch:'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M10 2h4M12 2v3"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  whistle:'<circle cx="9" cy="14" r="5"/><path d="M12 10h9v4h-4"/>',
+  wing:'<path d="M3 18h10l3-3M5 18c0-4 3-7 7-7M14 11c2-3 5-4 7-4-1 3-3 6-7 6"/>',
+  medal:'<circle cx="12" cy="15" r="6"/><path d="M8 3h8l-2 6h-4z"/>'
+};
+const SYMBOLS = [
+  ["watch","Stopwatch","Time is the one thing you cannot get back. Every rep and every minute counts."],
+  ["book","Books","Academics first. A 4.3 GPA does not happen by accident."],
+  ["compass","Compass","Know your direction and do not let anyone else steer."],
+  ["whistle","Whistle","Coachable. Listen, adjust and keep working."],
+  ["wing","Winged cleat","Speed, drive and the will to outwork the field."],
+  ["medal","Medal","Results come from the routine, not the spotlight."]
+];
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = id => document.getElementById(id);
+
+$('tick').textContent = ("STAY TO MYSELF ✦ FOCUS ON GOALS ✦ EMBRACE THE GRIND ✦ NO DISTRACTIONS ✦ JUST DEDICATION ✦ ").repeat(6);
+$('yr').textContent = new Date().getFullYear();
+$('stripX').onclick = () => $('strip').remove();
+
+$('symgrid').innerHTML = SYMBOLS.map(([k,t,d])=>`<div class="s"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><h3>${t}</h3><p>${d}</p></div>`).join('');
+
+/* ===== SHOP + CART =====
+   Products and prices live in products.json (the checkout function charges those same prices). */
+const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(n);
+let CATALOG = {products:[],shipping:null,taxPercent:null};
+let PRODUCTS = [];
+let cat = "All";
+const pick = {};   /* per product: chosen look index and size */
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('stm-cart')||'[]') || []; } catch { cart = []; }
+const save = () => { try { localStorage.setItem('stm-cart', JSON.stringify(cart)); } catch {} };
+const byId = id => PRODUCTS.find(p=>p.id===id);
+const upc = size => Number((CATALOG.sizeUpcharges||{})[size])||0;
+const unit = (p,size) => Math.round((p.price + upc(size))*100)/100;
+
+function renderShop(){
+  const cats = ["All", ...new Set(PRODUCTS.map(p=>p.cat))];
+  $('filters').innerHTML = cats.map(c=>`<button type="button" data-c="${esc(c)}" aria-pressed="${c===cat}">${esc(c)}</button>`).join('');
+  $('grid').innerHTML = PRODUCTS.map((p,i)=>({p,i})).filter(({p})=>cat==="All"||p.cat===cat).map(({p,i})=>{
+    const st = pick[p.id] ||= {look:0,size:''};
+    const lk = p.looks[st.look];
+    const sw = p.looks.length>1 ? `<div class="sw" role="group" aria-label="Color">${p.looks.map((l,j)=>`<button type="button" data-p="${i}" data-l="${j}" aria-pressed="${j===st.look}" title="${esc(l[0])}" aria-label="${esc(l[0])}" style="background:${esc(l[1])}"></button>`).join('')}</div>` : '';
+    const sizes = `<label class="sz"><span>Size</span><select data-size="${i}"><option value="">Choose size</option>${p.sizes.map(z=>{const so=(p.soldOut||[]).includes(z); return `<option value="${esc(z)}"${so?' disabled':''}${z===st.size&&!so?' selected':''}>${esc(z)}${so?' (sold out)':upc(z)?' (+'+money(upc(z))+')':''}</option>`}).join('')}</select></label>`;
+    return `<article class="p"><button class="ph" type="button" data-zoom="${i}" aria-label="View ${esc(p.name)} larger"><img id="pi${i}" src="${esc(lk[2])}" alt="${esc(p.name)}, ${esc(lk[0])}" loading="lazy"></button>
+      <div class="bd"><div class="meta"><span>${esc(p.cat)} · <span id="pc${i}">${esc(lk[0])}</span></span><span class="price" id="pp${i}">${money(st.size?unit(p,st.size):p.price)}</span></div>
+      <h3>${esc(p.name)}</h3><p style="margin:0;color:var(--muted);font-size:15px">${esc(p.desc)}</p>${sw}${sizes}
+      ${(p.soldOut||[]).length>=p.sizes.length?`<span class="btn solid" aria-disabled="true">Sold out</span>`:`<button class="btn solid" type="button" data-add="${i}">Add to cart</button>`}<div class="err" id="pe${i}" role="status"></div></div></article>`;
+  }).join('');
+}
+$('filters').onclick = e => { const b=e.target.closest('button'); if(!b) return; cat=b.dataset.c; renderShop(); };
+$('grid').onchange = e => { const sel=e.target.closest('[data-size]'); if(!sel) return; const p=PRODUCTS[+sel.dataset.size]; pick[p.id].size=sel.value; $('pe'+sel.dataset.size).textContent=''; $('pp'+sel.dataset.size).textContent=money(sel.value?unit(p,sel.value):p.price); };
+$('grid').onclick = e => {
+  const s = e.target.closest('.sw button');
+  if(s){ const i=+s.dataset.p, p=PRODUCTS[i], j=+s.dataset.l, l=p.looks[j]; pick[p.id].look=j;
+    $('pi'+i).src=l[2]; $('pi'+i).alt=p.name+', '+l[0]; $('pc'+i).textContent=l[0];
+    s.parentNode.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===s)); return; }
+  const a = e.target.closest('[data-add]');
+  if(a){ const i=+a.dataset.add, p=PRODUCTS[i], st=pick[p.id];
+    if(!st.size){ $('pe'+i).textContent='Choose a size first.'; return; }
+    const color=p.looks[st.look][0];
+    const ex=cart.find(c=>c.id===p.id&&c.color===color&&c.size===st.size);
+    if(ex) ex.qty=Math.min(10,ex.qty+1); else cart.push({id:p.id,color,size:st.size,qty:1});
+    save(); renderCart(); openCart(); return; }
+  const z = e.target.closest('[data-zoom]');
+  if(z){ const img=$('pi'+z.dataset.zoom); $('lbImg').src=img.src; $('lbImg').alt=img.alt; $('lb').showModal(); }
+};
+$('lbX').onclick = () => $('lb').close();
+$('lb').onclick = e => { if(e.target===$('lb')) $('lb').close(); };
+
+function renderCart(){
+  cart = cart.filter(c=>byId(c.id));
+  const n = cart.reduce((a,c)=>a+c.qty,0);
+  $('cartCount').textContent = n; $('cartCount').hidden = n===0;
+  if(!cart.length){ $('cartItems').innerHTML = `<p class="empty">Your cart is empty.</p>`; $('cartSum').hidden=true; return; }
+  $('cartSum').hidden=false;
+  $('cartItems').innerHTML = cart.map((c,k)=>{ const p=byId(c.id), img=(p.looks.find(l=>l[0]===c.color)||p.looks[0])[2];
+    return `<div class="ci"><img src="${esc(img)}" alt=""><div><b>${esc(p.name)}</b><span>${esc(c.color)} / ${esc(c.size)}</span>
+      <div class="qty"><button type="button" data-dec="${k}" aria-label="One fewer">−</button><span aria-live="polite">${c.qty}</span><button type="button" data-inc="${k}" aria-label="One more">+</button>
+      <button type="button" class="rm" data-rm="${k}">Remove</button></div></div><span class="price">${money(unit(p,c.size)*c.qty)}</span></div>`; }).join('');
+  const sub = cart.reduce((a,c)=>a+unit(byId(c.id),c.size)*c.qty,0);
+  const sh = CATALOG.shipping||{}; const ship = sh.amount>0 && !(sh.freeOver>0 && sub>=sh.freeOver) ? sh.amount : 0;
+  $('cartSub').textContent = money(sub);
+  $('cartShip').textContent = ship ? money(ship) : 'Free';
+  $('cartTax').hidden = !CATALOG.taxPercent;
+  $('cartTotal').textContent = money(sub+ship);
+}
+$('cartItems').onclick = e => {
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.inc) cart[+b.dataset.inc].qty=Math.min(10,cart[+b.dataset.inc].qty+1);
+  if(b.dataset.dec){ const c=cart[+b.dataset.dec]; c.qty--; if(c.qty<1) cart.splice(+b.dataset.dec,1); }
+  if(b.dataset.rm) cart.splice(+b.dataset.rm,1);
+  save(); renderCart();
+};
+function openCart(){ $('cart').classList.add('open'); $('cartBg').hidden=false; $('cart').setAttribute('aria-hidden','false'); $('cartClose').focus(); }
+function closeCart(){ $('cart').classList.remove('open'); $('cartBg').hidden=true; $('cart').setAttribute('aria-hidden','true'); }
+$('cartBtn').onclick = openCart; $('cartClose').onclick = closeCart; $('cartBg').onclick = closeCart;
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeCart(); });
+
+$('checkout').onclick = async () => {
+  if(CATALOG.checkoutOpen===false){ $('cartMsg').textContent='The shop is closed right now. Please check back soon.'; return; }
+  const btn=$('checkout'); $('cartMsg').textContent=''; btn.disabled=true; btn.textContent='Opening secure checkout…';
+  try {
+    const r = await fetch(SITE.checkoutEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({items:cart})});
+    const d = await r.json().catch(()=>({}));
+    if(r.ok && d.url){ location.href = d.url; return; }
+    $('cartMsg').textContent = d.error || 'Checkout is not connected yet. Please check back soon.';
+  } catch { $('cartMsg').textContent = 'Checkout is not connected yet. Please check back soon.'; }
+  btn.disabled=false; btn.textContent='Checkout with Square';
+};
+
+const qs = new URLSearchParams(location.search);
+if(qs.get('order')==='success'){ cart=[]; save(); $('thanks').hidden=false; history.replaceState(null,'',location.pathname+'#shop'); }
+$('thanksX').onclick = () => $('thanks').hidden=true;
+
+/* Live data comes from the admin (/api/store). products.json is the fallback for previews. */
+function applyContent(c){
+  if(!c) return;
+  if(c.banner){ if(!c.banner.on){ $('strip')?.remove(); } else if($('stripText')) $('stripText').textContent=c.banner.text; }
+  const set=(id,v)=>{ if(v && $(id)) $(id).textContent=v; };
+  set('tagline',c.tagline); set('founder',c.founderName); set('notTitle',c.notTitle); set('notText',c.notText);
+  (c.story||[]).forEach((t,i)=>set('story'+i,t)); if($('story1')) $('story1').hidden=!(c.story||[])[1];
+  if(Array.isArray(c.stats)&&c.stats.length) $('stats').innerHTML=c.stats.filter(s=>s[0]).map(s=>`<div class="stat"><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join('');
+  if(c.instagram) $('ig').href=c.instagram; if(c.tiktok) $('tt').href=c.tiktok;
+}
+function useData(d){ CATALOG=d; PRODUCTS=(d.products||[]).filter(p=>p.visible!==false); applyContent(d.content); renderShop(); renderCart(); }
+fetch('/api/store').then(r=>{ if(!r.ok) throw 0; return r.json(); }).then(useData)
+  .catch(()=>fetch('products.json').then(r=>r.json()).then(useData))
+  .catch(()=>{ $('grid').innerHTML='<p class="empty">The shop could not load. Please refresh the page.</p>'; });
+
+let cw = 0;
+function renderCw(){
+  $('cwlist').innerHTML = COLORWAYS.map(([n,c],i)=>`<button type="button" data-i="${i}" aria-pressed="${i===cw}"><span class="dot" style="background:${c}"></span>${n}</button>`).join('');
+  const img=$('cwImg'); img.style.opacity=0;
+  setTimeout(()=>{ img.src=COLORWAYS[cw][2]; img.alt='STM logo, '+COLORWAYS[cw][0]+' colorway'; img.style.opacity=1; },150);
+}
+$('cwlist').onclick = e => { const b=e.target.closest('button'); if(!b) return; cw=+b.dataset.i; renderCw(); };
+document.addEventListener('keydown', e => {
+  if(!document.activeElement?.closest('#cwlist')) return;
+  if(e.key==='ArrowDown'||e.key==='ArrowRight'){cw=(cw+1)%COLORWAYS.length;renderCw();$('cwlist').children[cw].focus();e.preventDefault();}
+  if(e.key==='ArrowUp'||e.key==='ArrowLeft'){cw=(cw-1+COLORWAYS.length)%COLORWAYS.length;renderCw();$('cwlist').children[cw].focus();e.preventDefault();}
+});
+renderCw();
+
+if(SITE.instagram) $('ig').href=SITE.instagram; else $('ig').removeAttribute('href');
+if(SITE.tiktok) $('tt').href=SITE.tiktok; else $('tt').removeAttribute('href');
+$('joinForm').onsubmit = e => {
+  e.preventDefault();
+  if(SITE.signupUrl){ location.href = SITE.signupUrl; return; }
+  $('msg').textContent = "Email signups open soon. Follow STM on social for drop dates.";
+};
+}
+</script>
+</body>
+</html>
