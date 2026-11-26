@@ -21,8 +21,7 @@ export default async (req, context) => {
     if (!code || body.code !== code) { await new Promise(r => setTimeout(r, 800)); return fail("That setup code is not right.", 401); }
     const email = cleanEmail(body.email);
     if (!okEmail(email) || !body.name || String(body.password || "").length < 10) return fail("Enter a name, a valid email, and a password of at least 10 characters.");
-    let cookie;
-    try { cookie = sessionCookie(email); } catch { return fail("ADMIN_SECRET is missing or too short in Netlify. Add it, redeploy, then try again.", 500); }
+    const cookie = await sessionCookie(email);
     users.push({ email, name: String(body.name).slice(0, 60), ...hashPassword(body.password), created: new Date().toISOString() });
     await saveUsers(users);
     return json({ ok: true }, 200, { "Set-Cookie": cookie });
@@ -33,8 +32,7 @@ export default async (req, context) => {
     const u = (await getUsers()).find(x => x.email === email);
     const ok = u && checkPassword(String(body.password || ""), u);
     if (!ok) { await new Promise(r => setTimeout(r, 800)); return fail("Email or password is not right.", 401); }
-    let cookie;
-    try { cookie = sessionCookie(u.email); } catch { return fail("ADMIN_SECRET is missing or too short in Netlify. Add it, redeploy, then try again.", 500); }
+    const cookie = await sessionCookie(u.email);
     return json({ ok: true, user: { email: u.email, name: u.name } }, 200, { "Set-Cookie": cookie });
   }
 

@@ -69,11 +69,22 @@ export const json = (body, status = 200, headers = {}) =>
 export const fail = (msg, status = 400) => json({ error: msg }, status);
 
 /* ---------- auth ---------- */
-const secret = () => {
-  const s = env("ADMIN_SECRET");
-  if (!s || s.length < 24) throw new Error("ADMIN_SECRET is missing or too short (use 32+ random characters).");
-  return s;
-};
+// Session signing key: ADMIN_SECRET if set in Netlify, otherwise one the site makes
+// for itself on first use and keeps in private storage. Nobody has to type it.
+let _secret;
+async function secret() {
+  if (_secret) return _secret;
+  const fromEnv = env("ADMIN_SECRET");
+  if (fromEnv && fromEnv.length >= 24) return (_secret = fromEnv);
+  const store = db();
+  let s = await store.get("config/session-secret", { type: "text" });
+  if (!s) {
+    s = crypto.randomBytes(32).toString("base64url");
+    await store.set("config/session-secret", s, { onlyIfNew: true }).catch(() => {});
+    s = (await store.get("config/session-secret", { type: "text" })) || s;
+  }
+  return (_secret = s);
+}
 export function hashPassword(pw, salt = crypto.randomBytes(16).toString("hex")) {
   return { salt, hash: crypto.scryptSync(pw, salt, 64).toString("hex") };
 }
@@ -83,11 +94,11 @@ export function checkPassword(pw, user) {
   return h.length === want.length && crypto.timingSafeEqual(h, want);
 }
 const b64 = s => Buffer.from(s).toString("base64url");
-const sign = data => crypto.createHmac("sha256", secret()).update(data).digest("base64url");
+const sign = async data => crypto.createHmac("sha256", await secret()).update(data).digest("base64url");
 
-export function sessionCookie(email) {
+export async function sessionCookie(email) {
   const body = b64(JSON.stringify({ e: email, x: Date.now() + 7 * 864e5 }));
-  const tok = `${body}.${sign(body)}`;
+  const tok = `${body}.${await sign(body)}`;
   return `stm_session=${tok}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${7 * 86400}`;
 }
 export const clearCookie = "stm_session=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0";
@@ -101,7 +112,7 @@ export async function currentUser(req) {
   if (!m) return null;
   const [body, sig] = m[1].split(".");
   if (!body || !sig) return null;
-  const good = sign(body);
+  const good = await sign(body);
   if (good.length !== sig.length || !crypto.timingSafeEqual(Buffer.from(good), Buffer.from(sig))) return null;
   let p; try { p = JSON.parse(Buffer.from(body, "base64url").toString()); } catch { return null; }
   if (!p.x || p.x < Date.now()) return null;

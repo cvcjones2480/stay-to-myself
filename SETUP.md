@@ -60,7 +60,6 @@ In Netlify go to **Site configuration > Environment variables** and add these:
 
 | Name | What to put |
 |---|---|
-| `ADMIN_SECRET` | A long random string, 32+ characters. Mash the keyboard; nobody needs to remember it. |
 | `ADMIN_SETUP_CODE` | A one-time code you make up, used only to create the first login. |
 | `SQUARE_ACCESS_TOKEN` | Square access token |
 | `SQUARE_LOCATION_ID` | Square location ID |
